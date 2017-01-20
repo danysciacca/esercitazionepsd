@@ -17,7 +17,7 @@ import utenti.utente;
 
 /**
  *
- * @author Daniele
+ * @author Daniele_
  */
 @Local
 public interface GestoreLocal {
