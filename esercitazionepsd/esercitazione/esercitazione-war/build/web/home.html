@@ -1,0 +1,92 @@
+  <!DOCTYPE html>
+  <meta charset="utf-8" />
+  <title>WebSocket Test</title>
+    
+ <head>
+        <title>Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    
+  <script language="javascript" type="text/javascript">
+
+  var wsUri = "ws://localhost:8080/esercitazione/server";
+  var output;
+
+  function init()
+  {
+    output = document.getElementById("output");
+    testWebSocket();
+  }
+
+  function testWebSocket()
+  {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function onOpen(evt)
+  {
+    writeToScreen("CONNECTED");
+    doSend("connesso");
+  }
+
+  function onClose(evt)
+  {
+    writeToScreen("DISCONNECTED");
+  }
+
+  function onMessage(evt)
+  {
+    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+    websocket.close();
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+  function doSend(message)
+  {
+    writeToScreen("SENT: " + message);
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    var pre = document.createElement("p");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = message;
+    output.appendChild(pre);
+  }
+
+  window.addEventListener("load", init, false);
+
+  </script>
+ 
+    <body>
+        
+        <form action='doSend'>
+        inserisci nome: <input type="text" name="nome">
+        inserisci cognome: <input type="text" name="cognome">
+        inserisci sesso: <input type="text" name="sesso">
+        inserisci indirizzo: <input type="text" name="indirizzo">
+        inserisci mail: <input type="text" name="mail">
+        inserisci codice fiscale: <input type="text" name="codice_fiscale">
+        inserisci carta d'identità: <input type="text" name="numero_carta_d_identita">
+        inserisci patente: <input type="text" name="numero_patente">
+             <input type="submit" name="GO" Value="invia" >
+        </form>
+       
+ 
+        </body>
+
+ 
+  
+ 
+          
